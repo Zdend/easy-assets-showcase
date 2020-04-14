@@ -1,0 +1,5 @@
+mutation uploadImage($image: Upload!, $folder: UploadFolder!) {
+    uploadImage(image: $image, folder: $folder) {
+        url
+    }
+}

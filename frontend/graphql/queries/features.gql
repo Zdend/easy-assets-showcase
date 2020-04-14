@@ -1,0 +1,10 @@
+#import from '../fragments/feature.gql'
+
+query features($offset: Int, $limit: Int) {
+  features(offset: $offset, limit: $limit) {
+    total
+    items {
+      ...FeatureFragment
+    }
+  }
+}

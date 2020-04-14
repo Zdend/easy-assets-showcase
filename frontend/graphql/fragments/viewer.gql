@@ -1,0 +1,7 @@
+fragment ViewerFragment on Viewer {
+  id
+  name
+  firstName
+  lastName
+  email
+}

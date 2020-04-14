@@ -1,0 +1,7 @@
+#import from '../fragments/viewer.gql'
+
+query viewer {
+    viewer {
+        ...ViewerFragment
+    }
+}

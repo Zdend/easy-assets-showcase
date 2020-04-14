@@ -1,0 +1,17 @@
+#import from '../../graphql/fragments/company.gql'
+#import from '../../graphql/fragments/feature.gql'
+
+query publicCompany ($id: ID!) {
+  company(id: $id) {
+    ...CompanyFragment
+    features {
+      ...FeatureFragment
+    }
+    addresses {
+      id
+      city
+      postcode
+      suburb
+    }
+  }
+}

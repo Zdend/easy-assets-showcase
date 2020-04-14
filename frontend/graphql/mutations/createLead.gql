@@ -1,0 +1,7 @@
+mutation createLead($input: CreateLeadInput!) {
+  createLead(input: $input) {
+    lead {
+      id
+    }
+  }
+}

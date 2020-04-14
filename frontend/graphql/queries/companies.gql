@@ -1,0 +1,15 @@
+#import from '../fragments/company.gql'
+
+query companies($offset: Int, $limit: Int, $sortBy: CompanyField, $sortDir: SortDirection, $filter: CompanyFilter) {
+  companies(offset: $offset, limit: $limit, sortBy: $sortBy, sortDir: $sortDir, filter: $filter) {
+    total
+    items {
+      ...CompanyFragment
+      addresses {
+        id
+        city
+        suburb
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+# https://graphql-code-generator.com/docs/plugins/typescript-react-apollo
+overwrite: true
+schema: '../backend/src/schema.graphql'
+config:
+  reactApolloVersion: 3
+  withHooks: true
+  namingConvention: 
+    enumValues: keep
+documents: 
+  - 'graphql/**/*.gql'
+  - 'smart/**/*.gql'
+generates:
+  generated/types.ts:
+    - typescript
+  smart/:
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: ../generated/types.ts
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo  
+

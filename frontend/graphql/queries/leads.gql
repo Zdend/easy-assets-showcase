@@ -1,0 +1,14 @@
+#import from '../fragments/lead.gql'
+#import from '../fragments/company.gql'
+
+query leads($offset: Int, $limit: Int) {
+  leads(offset: $offset, limit: $limit) {
+    total
+    items {
+      ...LeadFragment
+      companies {
+        ...CompanyFragment
+      }
+    }
+  }
+}

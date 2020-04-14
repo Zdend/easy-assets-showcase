@@ -1,0 +1,17 @@
+fragment CompanyFragment on Company {
+  id
+  name
+  slug
+  description
+  logo
+  createdAt
+  type
+  serviceType
+  status
+  affiliateUrl
+  websiteUrl
+  premium
+  languages
+  pricing
+  tags
+}

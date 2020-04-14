@@ -1,0 +1,495 @@
+# SCALARS
+
+scalar DateTime
+scalar Upload
+
+# GENERIC TYPES
+type File {
+  url: String!
+}
+
+enum SortDirection {
+  ASC
+  DESC
+}
+
+enum Role {
+  SUPER_ADMIN
+  COMPANY_MANAGER
+}
+
+input StringCriteria {
+  notIn: [String!]
+  in: [String!]
+}
+
+enum UploadFolder {
+  POST
+  COMPANY
+}
+
+enum Language {
+  ENGLISH
+  MANDARIN
+  HINDI
+  SPANISH
+  FRENCH
+  STANDARD_ARABIC
+  BENGALI
+  RUSSIAN
+  PORTUGESE
+  INDONESIAN
+  URDU
+  GERMAN
+  JAPANESE
+  SWAHILI
+  MARATHI
+  TELUGU
+  PUNJABI
+  WU_CHINESE
+  TAMIL
+  TURKISH
+  KOREAN
+  VIETNAMESE
+  CANTONESE
+  JAVANESE
+  ITALIAN
+  EGYPTIAN_ARABIC
+  HAUSA
+  THAI
+  GUJARATI
+  KANNADA
+  PERSIAN
+  BHOJPURI
+  SOUTHERN_MIN
+  FILIPINO
+  POLISH
+  YORUBA
+  MALAYALAM
+  ODIA
+  MAITHILI
+  BURMESE
+  SUNDA
+  SUDANESE_ARABIC
+  ALGERIAN_ARABIC
+  MOROCCAN_ARABIC
+  UKRAINIAN
+  IGBO
+  NORTHERN_UZBEK
+  SINDHI
+  ROMANIAN
+  TAGALOG
+  DUTCH
+  AMHARIC
+  MALAY
+  NEPALI
+  GREEK
+  KAZAKH
+  DECCAN
+  HUNGARIAN
+  ZULU
+  RUNDI
+  CZECH
+}
+
+enum AudienceType {
+  INDIVIDUAL
+  BUSINESS
+  INDIVIDUAL_BUSINESS
+}
+
+# AUTH
+type Viewer {
+  id: ID!
+  name: String!
+  email: String!
+  firstName: String!
+  lastName: String!
+}
+
+type LoginPayload {
+  viewer: Viewer!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input ResetPasswordInput {
+  email: String!
+  password: String!
+  token: String!
+}
+
+
+# USER
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  role: Role
+  firstName: String!
+  lastName: String!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+}
+
+# POST
+
+type Post {
+  id: ID!
+  title: String!
+  content: String
+  author: User!
+  createdAt: DateTime!
+  publishedAt: DateTime
+  published: Boolean!
+  mainImage: String
+  slug: String
+  features: [Feature!]!
+}
+
+type PostCollection {
+  total: Int!
+  items: [Post!]!
+}
+
+enum PostField {
+  TITLE
+  CREATED_AT
+  PUBLISHED_AT
+  PUBLISHED
+  FEATURES
+}
+
+input PostFilter {
+  PUBLISHED: Boolean
+  ID: StringCriteria
+  FEATURES: StringCriteria
+}
+
+input CreatePostInput {
+  title: String!
+  content: String
+  published: Boolean
+  publishedAt: DateTime
+  mainImage: String
+  slug: String
+  features: [ID!]!
+}
+
+input UpdatePostInput {
+  id: ID!
+  title: String!
+  content: String
+  published: Boolean
+  publishedAt: DateTime
+  mainImage: String
+  slug: String
+  features: [ID!]!
+}
+
+# FEATURE
+
+enum FeatureTag {
+  TAX_RETURN
+}
+
+type Feature {
+  id: ID!
+  name: String!
+  slug: String
+  type: AudienceType
+  description: String
+  tags: [FeatureTag!]!
+}
+
+input CreateFeatureInput {
+  name: String!
+  type: AudienceType
+  description: String
+  tags: [FeatureTag!]!
+}
+
+input UpdateFeatureInput {
+  id: ID!
+  name: String!
+  type: AudienceType
+  description: String
+  tags: [FeatureTag!]!
+}
+
+type FeatureCollection {
+  total: Int!
+  items: [Feature!]!
+}
+
+# ADDRESS
+enum AuState {
+  NSW
+  VIC
+  ACT
+  QLD
+  TAS
+  WA
+  NT
+  SA
+  OTHER
+}
+
+enum AuCity {
+  SYDNEY
+  MELBOURNE
+  BRISBANE
+  HOBART
+  DARWIN
+  CAIRNS
+  PERTH
+  ADELAIDE
+  CANBERRA
+  OTHER
+}
+
+type Address {
+  id: ID!
+  suburb: String!
+  postcode: String!
+  state: AuState!
+  city: AuCity!
+  lat: Float
+  long: Float
+}
+
+enum AddressField {
+  POSTCODE
+  SUBURB
+  STATE
+  CITY
+}
+
+type AddressCollection {
+  total: Int!
+  items: [Address!]!
+}
+
+input AddressFilter {
+  SEARCH: String
+  ID: StringCriteria
+}
+
+# COMPANY
+
+enum CompanyServiceType {
+  ONLINE
+  FACE_TO_FACE
+  ALL
+}
+
+enum CompanyStatus {
+  DRAFT
+  ACTIVE
+}
+
+enum CompanyTag {
+  TAX_RETURN
+}
+
+type Company {
+  id: ID!
+  name: String!
+  slug: String!
+  logo: String
+  description: String
+  createdAt: DateTime!
+  type: AudienceType!
+  serviceType: CompanyServiceType
+  premium: Boolean!
+  affiliateUrl: String
+  websiteUrl: String
+  features: [Feature!]!
+  manager: User
+  addresses: [Address!]!
+  languages: [Language!]!
+  status: CompanyStatus!
+  pricing: String
+  tags: [CompanyTag!]!
+}
+
+type CompanyCollection {
+  total: Int!
+  items: [Company!]!
+}
+
+enum CompanyField {
+  NAME
+  TYPE
+  CREATED_AT
+  SERVICE_TYPE
+  LANGUAGES
+  FEATURES
+  PREMIUM
+  ADDRESS_CITY
+  STATUS
+  FEATURE_TAG
+  PRICING
+  COMPANY_TAG
+}
+
+input CompanyFilter {
+  ID: StringCriteria
+  SEARCH: String
+  FEATURES: StringCriteria
+  TYPE: StringCriteria
+  LANGUAGES: StringCriteria
+  SERVICE_TYPE: StringCriteria
+  ADDRESS_CITY: StringCriteria
+  STATUS: StringCriteria
+  FEATURE_TAG: StringCriteria
+  COMPANY_TAG: StringCriteria
+}
+
+input CreateCompanyInput {
+  name: String!
+  description: String
+  logo: String
+  type: AudienceType!
+  serviceType: CompanyServiceType
+  premium: Boolean!
+  affiliateUrl: String
+  websiteUrl: String
+  features: [ID!]!
+  addresses: [ID!]!
+  languages: [Language!]!
+  manager: ID
+  status: CompanyStatus!
+  pricing: String
+  tags: [CompanyTag!]!
+}
+
+input UpdateCompanyInput {
+  id: ID!
+  name: String!
+  description: String
+  logo: String
+  type: AudienceType!
+  serviceType: CompanyServiceType
+  premium: Boolean!
+  affiliateUrl: String
+  websiteUrl: String
+  features: [ID!]!
+  addresses: [ID!]!
+  languages: [Language!]!
+  manager: ID
+  status: CompanyStatus!
+  pricing: String
+  tags: [CompanyTag!]!
+}
+
+# LEAD
+type Lead {
+  id: ID!
+  name: String!
+  email: String!
+  createdAt: DateTime!
+  phoneNumber: String
+  city: AuCity
+  requirements: String
+  companyName: String
+  companies: [Company!]!
+}
+
+type LeadCollection {
+  total: Int!
+  items: [Lead!]!
+}
+
+input CreateLeadInput {
+  name: String!
+  email: String!
+  phoneNumber: String
+  city: AuCity
+  requirements: String
+  companyName: String
+  companies: [ID!]
+}
+
+input UpdateLeadInput {
+  id: ID!
+  name: String
+  email: String
+  phoneNumber: String
+  city: AuCity
+  requirements: String
+  companyName: String
+  companies: [ID!]
+}
+
+type CreateLeadPayload {
+  lead: Lead!
+}
+
+type UpdateLeadPayload {
+  lead: Lead!
+}
+# OTHER
+
+type SimpleResponsePayload {
+  ok: Boolean!
+}
+
+type PurgeUnusedImagesPayload {
+  storedImagesCount: Int!
+  unusedImagesCount: Int!
+  deletedImagesCount: Int!
+}
+
+type Mutation {
+  login(input: LoginInput): LoginPayload
+  logout: SimpleResponsePayload
+  forgotPassword(email: String!): SimpleResponsePayload
+  resetPassword(input: ResetPasswordInput!): SimpleResponsePayload
+
+  createUser(input: CreateUserInput!): User
+  deleteUser(id: ID!): SimpleResponsePayload
+
+  deletePost(id: ID!): SimpleResponsePayload
+  createPost(input: CreatePostInput!): Post
+  updatePost(input: UpdatePostInput!): Post
+
+  createCompany(input: CreateCompanyInput!): Company
+  deleteCompany(id: ID!): SimpleResponsePayload
+  updateCompany(input: UpdateCompanyInput!): Company
+
+  createFeature(input: CreateFeatureInput!): Feature
+  deleteFeature(id: ID!): SimpleResponsePayload
+  updateFeature(input: UpdateFeatureInput!): Feature
+
+  createLead(input: CreateLeadInput!): CreateLeadPayload
+  deleteLead(id: ID!): SimpleResponsePayload
+  updateLead(input: UpdateLeadInput!): UpdateLeadPayload
+
+  uploadImage(image: Upload!, folder: UploadFolder!): File!
+
+  purgeUnusedImages(dryRun: Boolean = true): PurgeUnusedImagesPayload
+}
+
+
+type Query {
+  users: [User!]!
+  viewer: Viewer!
+  posts(offset: Int = 0, limit: Int = 50, sortBy: PostField, sortDir: SortDirection = ASC, filter: PostFilter): PostCollection!
+  post(id: ID!): Post!
+  company(id: ID!): Company!
+  companies(offset: Int = 0, limit: Int = 50, sortBy: CompanyField, sortDir: SortDirection = ASC, filter: CompanyFilter): CompanyCollection!
+  feature(id: ID!): Feature!
+  features(offset: Int = 0, limit: Int = 50): FeatureCollection!
+  addresses(offset: Int = 0, limit: Int = 20, sortBy: AddressField, sortDir: SortDirection = ASC, filter: AddressFilter): AddressCollection!
+  lead(id: ID!): Lead!
+  leads(offset: Int = 0, limit: Int = 50): LeadCollection!
+}

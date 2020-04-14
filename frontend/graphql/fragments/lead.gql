@@ -1,0 +1,10 @@
+fragment LeadFragment on Lead {
+  id
+  name
+  email
+  createdAt
+  phoneNumber
+  city
+  companyName
+  requirements
+}

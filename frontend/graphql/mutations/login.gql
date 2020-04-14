@@ -1,0 +1,9 @@
+#import from '../fragments/viewer.gql'
+
+mutation login($input: LoginInput!) {
+  login(input: $input) {
+    viewer {
+      ...ViewerFragment
+    }
+  }
+}

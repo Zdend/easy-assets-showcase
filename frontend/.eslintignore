@@ -1,0 +1,3 @@
+generated/
+postcss.config.js
+*.generated.tsx

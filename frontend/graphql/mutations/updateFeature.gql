@@ -1,0 +1,5 @@
+mutation updateFeature($input: UpdateFeatureInput!) {
+    updateFeature(input: $input) {
+        id
+    }
+}

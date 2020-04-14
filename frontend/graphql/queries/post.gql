@@ -1,0 +1,10 @@
+#import from '../fragments/post.gql'
+
+query post ($id: ID!) {
+  post(id: $id) {
+    ...PostFragment
+    features {
+      id
+    }
+  }
+}

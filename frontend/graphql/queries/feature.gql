@@ -1,0 +1,7 @@
+#import from '../fragments/feature.gql'
+
+query feature ($id: ID!) {
+  feature(id: $id) {
+    ...FeatureFragment
+  }
+}

@@ -1,0 +1,16 @@
+#import from '../fragments/company.gql'
+
+query company ($id: ID!) {
+  company(id: $id) {
+    ...CompanyFragment
+    features {
+      id
+    }
+    addresses {
+      id
+    }
+    manager {
+      id
+    }
+  }
+}

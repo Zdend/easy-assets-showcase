@@ -1,0 +1,8 @@
+fragment FeatureFragment on Feature {
+  id
+  name
+  slug
+  type
+  description
+  tags
+}

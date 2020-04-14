@@ -1,0 +1,16 @@
+query adminCompanyList($offset: Int, $limit: Int, $sortBy: CompanyField, $sortDir: SortDirection, $filter: CompanyFilter) {
+  companies(offset: $offset, limit: $limit, sortBy: $sortBy, sortDir: $sortDir, filter: $filter) {
+    total
+    items {
+      id
+      name
+      createdAt
+      type
+      serviceType
+      addresses {
+        id
+        city
+      }
+    }
+  }
+}

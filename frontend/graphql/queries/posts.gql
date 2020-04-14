@@ -1,0 +1,13 @@
+#import from '../fragments/post.gql'
+
+query posts($offset: Int, $limit: Int, $sortBy: PostField, $sortDir: SortDirection, $filter: PostFilter) {
+  posts(offset: $offset, limit: $limit, sortBy: $sortBy, sortDir: $sortDir, filter: $filter) {
+    total
+    items {
+      ...PostFragment
+      author {
+          name
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+#import from '../fragments/address.gql'
+
+query addresses($offset: Int, $limit: Int, $sortBy: AddressField, $sortDir: SortDirection, $filter: AddressFilter) {
+  addresses(offset: $offset, limit: $limit, sortBy: $sortBy, sortDir: $sortDir, filter: $filter) {
+    total
+    items {
+      ...AddressFragment
+    }
+  }
+}

@@ -1,0 +1,5 @@
+mutation createFeature($input: CreateFeatureInput!) {
+  createFeature(input: $input) {
+    id
+  }
+}
