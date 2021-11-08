@@ -17,7 +17,7 @@
     "@types/jsonwebtoken": "8.3.5",
     "@types/nodemailer": "6.2.2",
     "@types/shortid": "0.0.29",
-    "apollo-server": "2.9.7",
+    "apollo-server": "2.25.3",
     "aws-sdk": "2.568.0",
     "bcryptjs": "2.4.3",
     "cookie": "0.4.0",
